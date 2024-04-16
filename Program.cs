@@ -7,19 +7,25 @@ namespace Schnitzel
     {
         static void Main(string[] args)
         {
-            var pathToCSV = @"C:\Users\cosh\Downloads\pathToTheSchnitzel";
+            var pathToCSV = @"G:\telecom-graph\telecom-graphCopy\edge_user_use_app\edge_user_use_app.txt";
             var path = Path.GetDirectoryName(pathToCSV);
             var fileToExtract = Path.GetFileName(pathToCSV);
             var fileExtension = Path.GetExtension(fileToExtract);
             var extractedAndPartitionedData = "extracted";
+            var extractHeader = false;
 
             Directory.CreateDirectory(Path.Combine(path, extractedAndPartitionedData));
 
-            int numberOfLines = 15000000;
+            int numberOfLines = 1500000;
 
             using (StreamReader sr = File.OpenText(pathToCSV))
             {
-                var header = sr.ReadLine();
+                String header = String.Empty;
+
+                if(extractHeader)
+                {
+                    header = sr.ReadLine();
+                }
 
                 StreamWriter writer = null;
 
@@ -45,7 +51,10 @@ namespace Schnitzel
                             var batchFilename = Path.Combine(path, extractedAndPartitionedData, 
                                 Path.GetFileNameWithoutExtension(fileToExtract) + "_" + batch.ToString() + fileExtension);
                             writer = new StreamWriter(batchFilename, true);
-                            writer.WriteLine(header);
+                            if (extractHeader)
+                            {
+                                writer.WriteLine(header);
+                            }
                             batch++;
                         }
 
