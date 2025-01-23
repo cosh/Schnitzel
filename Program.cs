@@ -7,16 +7,16 @@ namespace Schnitzel
     {
         static void Main(string[] args)
         {
-            var pathToCSV = @"G:\telecom-graph\telecom-graphCopy\edge_user_use_app\edge_user_use_app.txt";
+            var pathToCSV = @"C:\Users\...\myfile.csv";
             var path = Path.GetDirectoryName(pathToCSV);
             var fileToExtract = Path.GetFileName(pathToCSV);
             var fileExtension = Path.GetExtension(fileToExtract);
             var extractedAndPartitionedData = "extracted";
-            var extractHeader = false;
+            var extractHeader = true;
 
             Directory.CreateDirectory(Path.Combine(path, extractedAndPartitionedData));
 
-            int numberOfLines = 1500000;
+            int numberOfLines = 1000000;
 
             using (StreamReader sr = File.OpenText(pathToCSV))
             {
